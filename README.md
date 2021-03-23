@@ -63,7 +63,8 @@ solving the problem. Code that does not compile or run does not constitute a com
    from that parameter using the `ArrayList` constructor and assign it to the instance variable. See here for 
    documentation: [ArrayList](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html).
    You should then use the `Collections.sort` method to sort the `List` in ascending order by `volume`. To understand
-   how boxes are compared, look at the `compareTo` method in the `Box` class.
+   how boxes are compared, look at the `compareTo` method in the `Box` class. You may also find 
+   [this](https://beginnersbook.com/2013/12/sort-arraylist-in-descending-order-in-java/) example helpful.
 5. Create a getter for the `boxes` instance variable
    - Uncomment and run the tests in `test/java/problem1/BoxedUpTest.java` that begin with the words
      `constructor...`.
@@ -91,4 +92,47 @@ solving the problem. Code that does not compile or run does not constitute a com
 
 ### Problem 2
 
-1. In the `main/java` directory, create a package named `problem2`.
+1. In the `main/java/problem2` directory, create a .txt file named `CounterExamples.txt`. In this file, 
+   Give counterexamples of each of the following options for scheduling as to why we would not want to 
+   schedule based on these criteria:
+   - Scheduling based on Earliest Start Time 
+   - Scheduling based on Shortest Interval
+   - Scheduling based on Fewest Conflicts
+3. Each counter example should be clearly labeled and explained. You must use proper grammar and complete sentences.
+   You can provide sample data, but again, this must be clearly detailed and explained.
+4. Push this file to GitHub.
+5. In the `main/java/problem2` directory, review the file named `Assignment.java`. This class represents an assignment
+   with a `deadline` (`LocalTime` object) and a `studyTime` (integer, in minutes). In addition, there are `equals`, 
+   `hashCode`, `toString` and `compareTo` methods. You may not modify this class until explicitly specified.
+6. In the `main/java/problem2` directory, create a new Java class named `AssignmentSchedule`.
+7. Create a `static` method named `minimizeLateSubmissionTimes` that takes a `List` of `Assignment` objects and a
+   `LocalTime` object named `start` as parameters. The objective is to schedule the assignments, with no two overlapping 
+   in time, such that they are all completed before their deadline, beginning at `start`. If this is not possible, we define the lateness 
+   of the ith assignment to be the amount by which its finish time exceeds its deadline. The objective is to minimize the 
+   maximum amount of lateness over all the assignments. The method should return a `List` of `LocalTime` objects where
+   the order of the `LocalTime` objects is the starting time of each scheduled assignment. For the purposes of this exercise,
+   you can assume that no two assignments have the same deadline. **Do not modify the `List` parameter that is passed in.**
+   - How should you sort the assignments? By study time? By slack time (how long we can safely wait before starting a task)?
+     By deadline? As a comment at the top of this file, specify which measurement you chose and why. Give counter 
+     examples for the other two. Then, in the `Assignment` class, finish the `compareTo` method. This method is used
+     to compare two objects when sorting - use your chosen measurement in this method.
+   - Uncomment and run the tests in `test/java/problem2/AssignmentScheduleTest.java` that begin with the words
+     `compareTo...`.
+   - Java API Methods/Classes you are allowed to use: `Collections.sort`, `new ArrayList<>` (and other constructors), `List<Assignment>`, 
+     `add` (from the `ArrayList` class), `remove` (from the `ArrayList` class), `get` (from the `ArrayList` class),
+     `plusMinutes` (from the `LocalTime` class), `isAfter` (from the `LocalTime` class), `isBefore` (from the `LocalTime` class)
+   - Documentation for the `LocalTime` class (note that the times are 24-hour/military time): [LocalTime](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/LocalTime.html)
+   - Uncomment and run the tests in `test/java/problem2/AssignmentScheduleTest.java` that begin with the words
+     `minimizeLateSubmissionTimes...`.
+   - After these pass, run the code analyzers and push your code to GitHub.
+8. Create a `static` method named `lateness` that takes a `List` of `Assignment` objects and a `List` of `LocalTime` 
+   objects representing a schedule as parameters. The method should return an integer representing the total number 
+   of minutes that the schedule is "late" - in other words the maximum "lateness" of the schedule. The lateness of the ith assignment 
+   is the amount of time by which it exceeds its deadline given that you start working on the assignments 
+   beginning at the `start` parameter. Note that the `List` of assignments is not sorted. 
+   - Do not modify the parameter passed in.
+   - You may find the Java API class/method `Duration.between` helpful for this. Note that it takes two `Temporal` 
+     objects as parameters. A `LocalTime` object is a `Temporal` object (ahhh, interface inheritance).
+   - Uncomment and run the tests in `test/java/problem2/AssignmentScheduleTest.java` that begin with the words
+     `lateness...`.
+   - After these pass, run the code analyzers and push your code to GitHub.
